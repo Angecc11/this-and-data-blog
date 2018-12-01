@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Angela&#39;s blog on Angela&#39;s blog</title>
+    <link>/</link>
+    <description>Recent content in Angela&#39;s blog on Angela&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 15 Oct 2017 00:00:00 +0100</lastBuildDate>
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Setting up the blog</title>
+      <link>/post/setting-up-the-blog/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/setting-up-the-blog/</guid>
+      <description>
+
+&lt;p&gt;I am referring primarily to the Blogdown book by Yihue to build this website.
+I am also working off Alison Premane Hills tutorial &amp;lsquo;Up and Running with blogdown. A workshop for the Portland R User Group&amp;rsquo;.
+[slides and link](&amp;ldquo;&lt;a href=&#34;https://apreshill.rbind.io/talk/blogdown-meetup/&amp;quot;&#34; target=&#34;_blank&#34;&gt;https://apreshill.rbind.io/talk/blogdown-meetup/&amp;quot;&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h2 id=&#34;blogdown-new-site&#34;&gt;&lt;code&gt;blogdown::new_site()&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;command to build a site&lt;/p&gt;
+
+&lt;h2 id=&#34;serve-site&#34;&gt;&lt;code&gt;serve_site()&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;I need to find out when to use &lt;code&gt;serve_site()&lt;/code&gt; instead of &lt;code&gt;hugo_build()&lt;/code&gt;
+serve_site() seems to do the trick for me. When I run this command, I then can drag my public folder directly into the netlify page to manually deploy it.&lt;/p&gt;
+
+&lt;h2 id=&#34;adding-a-logo&#34;&gt;adding a logo&lt;/h2&gt;
+
+&lt;p&gt;Adding a logo. The logo file is kept in the /static/ folder
+save your logo image into the static folder. in the config.toml file go down to [params.logo] and change the default url to the name of your image to be used as the logo. in my case &amp;ldquo;rocco2.png&amp;rdquo;&lt;/p&gt;
+
+&lt;h2 id=&#34;choosing-a-theme&#34;&gt;choosing a theme&lt;/h2&gt;
+
+&lt;p&gt;I have considered various themes to try out by looking at some other blogs. Some of the ones that I like are &lt;code&gt;Beautiful Hugo&lt;/code&gt;, &lt;code&gt;Blackburn&lt;/code&gt; and also &lt;code&gt;Academic&lt;/code&gt; but I feel that I am not academic enough to be using &lt;code&gt;Academic&lt;/code&gt;!
+What I want is a simple page where I keep my learning efforts / posts and be able to find them easily. The &lt;code&gt;Academic&lt;/code&gt; theme seems to have a section with a menu on the right that is easy to navigate. I could just remove the sections that are not relevant to me.
+I am going to go with  the &lt;code&gt;xmin&lt;/code&gt; theme by Yihue Xie. If its good enough for Yihue then well it should be more than good enough for a complete novice. I think it may be better to stick with a simpler theme and then work through the blogdown book by Yihue himself.&lt;/p&gt;
+
+&lt;p&gt;This is what the Yihue Xie has written in the &lt;code&gt;About&lt;/code&gt; page for the &lt;code&gt;xmin&lt;/code&gt; theme.&lt;/p&gt;
+
+&lt;p&gt;*&amp;rdquo;&lt;strong&gt;XMin&lt;/strong&gt; is the first Hugo theme I have designed. The original reason that I wrote it was I needed a minimal example of Hugo themes when I was writing the  &lt;a href=&#34;https://github.com/rstudio/blogdown&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt; book. Basically I wanted a simple theme that supports a navigation menu, a home page, other single pages, lists of pages, blog posts, categories, tags, and RSS. That is all. Nothing fancy. In terms of CSS and JavaScript, I really want to keep them minimal. In fact, this theme does not contain any JavaScript code at all, although on this example website I did introduce some JavaScript code (still relatively simple anyway). The theme does not contain any images, either, and is pretty much a plain-text theme.
+The theme name &amp;ldquo;XMin&amp;rdquo; can be interpreted as &amp;ldquo;&lt;strong&gt;X&lt;/strong&gt;ie&amp;rsquo;s &lt;strong&gt;Min&lt;/strong&gt;imal theme&amp;rdquo; (Xie is my last name) or &amp;ldquo;e&lt;strong&gt;X&lt;/strong&gt;tremely &lt;strong&gt;Min&lt;/strong&gt;imal theme&amp;rdquo;.&amp;rdquo;*&lt;/p&gt;
+
+&lt;h1 id=&#34;config-toml&#34;&gt;config.toml&lt;/h1&gt;
+
+&lt;p&gt;For this example site, I defined permalinks for two sections, &lt;code&gt;post&lt;/code&gt; and &lt;code&gt;note&lt;/code&gt;, so that the links to pages under these directories will contain the date info, e.g., &lt;code&gt;https://xmin.yihui.name/post/2016/02/14/a-plain-markdown-post/&lt;/code&gt;. This is optional, and it is up to your personal taste of URLs.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[permalinks]
+    post = &amp;quot;/post/:year/:month/:day/:slug/&amp;quot;
+    note = &amp;quot;/note/:year/:month/:day/:slug/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can define the menu through &lt;code&gt;menu.main&lt;/code&gt;, e.g.,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[[menu.main]]
+    name = &amp;quot;Home&amp;quot;
+    url = &amp;quot;/&amp;quot;
+    weight = 1
+[[menu.main]]
+    name = &amp;quot;About&amp;quot;
+    url = &amp;quot;/about/&amp;quot;
+    weight = 2
+[[menu.main]]
+    name = &amp;quot;Categories&amp;quot;
+    url = &amp;quot;/categories/&amp;quot;
+    weight = 3
+[[menu.main]]
+    name = &amp;quot;Tags&amp;quot;
+    url = &amp;quot;/tags/&amp;quot;
+    weight = 4
+[[menu.main]]
+    name = &amp;quot;Subscribe&amp;quot;
+    url = &amp;quot;/index.xml&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Alternatively, you can add &lt;code&gt;menu: main&lt;/code&gt; to the YAML metadata of any of your pages, so that these pages will appear in the menu.&lt;/p&gt;
+
+&lt;p&gt;The page footer can be defined in &lt;code&gt;.Params.footer&lt;/code&gt;, and the text is treated as Markdown, e.g.,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[params]
+    footer = &amp;quot;&amp;amp;copy; [Yihui Xie](https://yihui.name) 2017&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;custom-layouts&#34;&gt;Custom layouts&lt;/h1&gt;
+
+&lt;p&gt;There are two layout files under &lt;code&gt;layouts/partials/&lt;/code&gt; that you may want to override: &lt;code&gt;head_custom.html&lt;/code&gt; and &lt;code&gt;foot_custom.html&lt;/code&gt;. This is how you inject arbitrary HTML code to the head and foot areas. For example, this site has a file &lt;code&gt;layouts/partials/foot_custom.html&lt;/code&gt; to support LaTeX math via MathJax and center images automatically:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script src=&amp;quot;//yihui.name/js/math-code.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script async src=&amp;quot;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&amp;quot;&amp;gt;
+&amp;lt;/script&amp;gt;
+
+&amp;lt;script async src=&amp;quot;//yihui.name/js/center-img.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can certainly enable highlight.js for syntax highlighting by yourself through &lt;code&gt;head_custom.html&lt;/code&gt; and &lt;code&gt;foot_custom.html&lt;/code&gt; if you want.&lt;/p&gt;
+
+&lt;p&gt;If you do not like the default fonts (e.g., &lt;code&gt;Palatino&lt;/code&gt;), you may provide your own &lt;code&gt;static/css/fonts.css&lt;/code&gt; under the root directory of your website to override the &lt;code&gt;fonts.css&lt;/code&gt; in the theme.&lt;/p&gt;
+
+&lt;h1 id=&#34;other-features&#34;&gt;Other features&lt;/h1&gt;
+
+&lt;p&gt;I could have added more features to this theme, but I decided not to, since I have no intention to make this theme feature-rich. However, I will teach you how. I have prepared several examples via pull requests at &lt;a href=&#34;https://github.com/yihui/hugo-xmin/pulls&#34; target=&#34;_blank&#34;&gt;https://github.com/yihui/hugo-xmin/pulls&lt;/a&gt;, so that you can see the implementations of these features when you check out the diffs in the pull requests. For example, you can:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/3&#34; target=&#34;_blank&#34;&gt;Enable Google Analytics&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/4&#34; target=&#34;_blank&#34;&gt;Enable Disqus comments&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/5&#34; target=&#34;_blank&#34;&gt;Enable highlight.js for syntax highlighting of code blocks&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/2&#34; target=&#34;_blank&#34;&gt;Display categories and tags on a page&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/7&#34; target=&#34;_blank&#34;&gt;Add a table of contents&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/6&#34; target=&#34;_blank&#34;&gt;Add a link in the footer of each page to &amp;ldquo;Edit this page&amp;rdquo; on Github&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To fully understand these examples, you have to read &lt;a href=&#34;https://bookdown.org/yihui/blogdown/templates.html&#34; target=&#34;_blank&#34;&gt;the section on Hugo templates&lt;/a&gt; in the &lt;strong&gt;blogdown&lt;/strong&gt; book.&lt;/p&gt;
+
+&lt;h1 id=&#34;design-philosophy&#34;&gt;Design philosophy&lt;/h1&gt;
+
+&lt;p&gt;Lastly, a few words about my design philosophy for this theme: I have been relying on existing frameworks like Bootstrap for years since I&amp;rsquo;m not really a designer, and I was always scared by the complexity of CSS.&lt;/p&gt;
+
+&lt;p&gt;When I started writing this theme, I asked myself, &amp;ldquo;&lt;em&gt;What if I just write from scratch?&lt;/em&gt;&amp;rdquo; No Bootstrap. No Normalize.css. I don&amp;rsquo;t care about IE (life could be so much easier without IE) or inconsistencies among browsers (for personal websites). As long as the theme looks okay in Chrome, Firefox, and Safari, I&amp;rsquo;m done. Thanks to the simplicity of Markdown, you cannot really produce very complicated HTML, and I think styling the HTML output from Markdown is much simpler than general HTML documents. For example, I do not need to care much about form elements like textareas or buttons.&lt;/p&gt;
+
+&lt;p&gt;After I finished this theme, I started to wonder why I&amp;rsquo;d need &lt;code&gt;normalize.css&lt;/code&gt; at all (it sounds like a religious belief). The default appearance of modern browsers actually looks pretty good in my eyes, after I tweak the typeface a little bit.&lt;/p&gt;
+
+&lt;p&gt;Compared to inconsistencies across browsers, I care much more about these properties of HTML elements:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Tables should always be centered, and striped tables are easier to read especially when they are wide. Tables should not have vertical borders.&lt;/li&gt;
+&lt;li&gt;An image should be centered if it is the only child element of a paragraph.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;max-width&lt;/code&gt; of images, videos, and iframes should be &lt;code&gt;100%&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I hope you can enjoy this theme. The source code is &lt;a href=&#34;https://github.com/yihui/hugo-xmin&#34; target=&#34;_blank&#34;&gt;on Github&lt;/a&gt;. Happy hacking!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Why am I doing this?</title>
+      <link>/post/why-am-i-doing-this/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/why-am-i-doing-this/</guid>
+      <description>&lt;p&gt;I have decided to take the advice I keep coming across on twitter to start a blog and document your learning.
+The main reason for me is to keep track of the various courses and projects I am working on and have one central place to find everything as I spend far too much time trying to find something I have done before! I started building the blog 2 months ago but then went back to other courses and tutorials and projects which I have kept locally on my computer. But there are oh so many files now that I forget what I have done or where I have put something. Therefore from now on I am going to record everything I do on this page, including how I am building this page. This might save me a lot of time in the future.
+The future me in 2 months time wont have to spend time staring at a tiny screen trying to locate a file!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>What am I at?</title>
+      <link>/post/what-am-i-at/</link>
+      <pubDate>Thu, 29 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/what-am-i-at/</guid>
+      <description>&lt;p&gt;At the moment I have working through the Tidy Text Mining in R book by Julia Silge and David Robinson&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Tidy Text Mining in R&lt;br /&gt;
+I am working through the Tidy Text Mining in R book by Julia Silge and David Robinson. Trying to replicate the examples using other texts. Trying to make sure I understand each function.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Joining Data in Dplyr&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Dplyr Tips&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Example Page</title>
+      <link>/tutorial/example/</link>
+      <pubDate>Sun, 09 Sep 2018 00:00:00 +0100</pubDate>
+      
+      <guid>/tutorial/example/</guid>
+      <description>
+
+&lt;p&gt;In this tutorial, I&amp;rsquo;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
+
+&lt;h2 id=&#34;tip-1&#34;&gt;Tip 1&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+
+&lt;h2 id=&#34;tip-2&#34;&gt;Tip 2&lt;/h2&gt;
+
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Privacy Policy</title>
+      <link>/privacy/</link>
+      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
+      
+      <guid>/privacy/</guid>
+      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Example Talk</title>
+      <link>/talk/example/</link>
+      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/talk/example/</guid>
+      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
+  &lt;p&gt;Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.&lt;/p&gt;
+
+&lt;/div&gt;
+
+
+&lt;p&gt;Slides can be added in a few ways:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt; slides using Academic&amp;rsquo;s &lt;em&gt;Slides&lt;/em&gt; feature and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Upload&lt;/strong&gt; an existing slide deck to &lt;code&gt;static/&lt;/code&gt; and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt; your slides (e.g. Google Slides) or presentation video on this page using &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hello R Markdown</title>
+      <link>/post/2015-07-23-r-rmarkdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/post/2015-07-23-r-rmarkdown/</guid>
+      <description>
+
+
+&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;R Markdown&lt;/h1&gt;
+&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href=&#34;http://rmarkdown.rstudio.com&#34; class=&#34;uri&#34;&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can embed an R code chunk like this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(cars)
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+fit &amp;lt;- lm(dist ~ speed, data = cars)
+fit
+## 
+## Call:
+## lm(formula = dist ~ speed, data = cars)
+## 
+## Coefficients:
+## (Intercept)        speed  
+##     -17.579        3.932&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;including-plots&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Including Plots&lt;/h1&gt;
+&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
+  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
+  init.angle = -50, border = NA
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: A fancy pie chart.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Slides</title>
+      <link>/slides/example-slides/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/slides/example-slides/</guid>
+      <description>
+
+&lt;h1 id=&#34;welcome-to-slides&#34;&gt;Welcome to Slides&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/&#34; target=&#34;_blank&#34;&gt;Academic&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;features&#34;&gt;Features&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Efficiently write slides in Markdown&lt;/li&gt;
+&lt;li&gt;3-in-1: Create, Present, and Publish your slides&lt;/li&gt;
+&lt;li&gt;Supports speaker notes&lt;/li&gt;
+&lt;li&gt;Mobile friendly slides&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;controls&#34;&gt;Controls&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Next: &lt;code&gt;Right Arrow&lt;/code&gt; or &lt;code&gt;Space&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Previous: &lt;code&gt;Left Arrow&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Start: &lt;code&gt;Home&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Finish: &lt;code&gt;End&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Overview: &lt;code&gt;Esc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Speaker notes: &lt;code&gt;S&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Fullscreen: &lt;code&gt;F&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Zoom: &lt;code&gt;Alt + Click&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hakimel/reveal.js#pdf-export&#34; target=&#34;_blank&#34;&gt;PDF Export&lt;/a&gt;: &lt;code&gt;E&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;code-highlighting&#34;&gt;Code Highlighting&lt;/h2&gt;
+
+&lt;p&gt;Inline code: &lt;code&gt;variable&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Code block:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;porridge = &amp;quot;blueberry&amp;quot;
+if porridge == &amp;quot;blueberry&amp;quot;:
+    print(&amp;quot;Eating...&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;math&#34;&gt;Math&lt;/h2&gt;
+
+&lt;p&gt;In-line math: $x + y = z$&lt;/p&gt;
+
+&lt;p&gt;Block math:&lt;/p&gt;
+
+&lt;p&gt;$$
+f\left( x \right) = \;\frac{{2\left( {x + 4} \right)\left( {x - 4} \right)}}{{\left( {x + 4} \right)\left( {x + 1} \right)}}
+$$&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;fragments&#34;&gt;Fragments&lt;/h2&gt;
+
+&lt;p&gt;Make content appear incrementally&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{{% fragment %}} One {{% /fragment %}}
+{{% fragment %}} **Two** {{% /fragment %}}
+{{% fragment %}} Three {{% /fragment %}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Press &lt;code&gt;Space&lt;/code&gt; to play!&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;fragment &#34; &gt;
+  One
+&lt;/span&gt;
+&lt;span class=&#34;fragment &#34; &gt;
+  &lt;strong&gt;Two&lt;/strong&gt;
+&lt;/span&gt;
+&lt;span class=&#34;fragment &#34; &gt;
+  Three
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;A fragment can accept two optional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;class&lt;/code&gt;: use a custom style (requires definition in custom CSS)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;weight&lt;/code&gt;: sets the order in which a fragment appears&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;speaker-notes&#34;&gt;Speaker Notes&lt;/h2&gt;
+
+&lt;p&gt;Add speaker notes to your presentation&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{% speaker_note %}}
+- Only the speaker can read these notes
+- Press `S` key to view
+{{% /speaker_note %}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Press the &lt;code&gt;S&lt;/code&gt; key to view the speaker notes!&lt;/p&gt;
+
+&lt;aside class=&#34;notes&#34;&gt;
+  &lt;ul&gt;
+&lt;li&gt;Only the speaker can read these notes&lt;/li&gt;
+&lt;li&gt;Press &lt;code&gt;S&lt;/code&gt; key to view&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/aside&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;themes&#34;&gt;Themes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;black: Black background, white text, blue links (default)&lt;/li&gt;
+&lt;li&gt;white: White background, black text, blue links&lt;/li&gt;
+&lt;li&gt;league: Gray background, white text, blue links&lt;/li&gt;
+&lt;li&gt;beige: Beige background, dark text, brown links&lt;/li&gt;
+&lt;li&gt;sky: Blue background, thin dark text, blue links&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;night: Black background, thick white text, orange links&lt;/li&gt;
+&lt;li&gt;serif: Cappuccino background, gray text, brown links&lt;/li&gt;
+&lt;li&gt;simple: White background, black text, blue links&lt;/li&gt;
+&lt;li&gt;solarized: Cream-colored background, dark green text, blue links&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+
+&lt;section data-noprocess data-shortcode-slide
+  
+      
+      data-background-image=&#34;/img/boards.jpg&#34;
+  &gt;
+
+
+&lt;h2 id=&#34;custom-slide&#34;&gt;Custom Slide&lt;/h2&gt;
+
+&lt;p&gt;Customize the slide style and background&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-markdown&#34;&gt;{{&amp;lt; slide background-image=&amp;quot;/img/boards.jpg&amp;quot; &amp;gt;}}
+{{&amp;lt; slide background-color=&amp;quot;#0000FF&amp;quot; &amp;gt;}}
+{{&amp;lt; slide class=&amp;quot;my-style&amp;quot; &amp;gt;}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;custom-css-example&#34;&gt;Custom CSS Example&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make headers navy colored.&lt;/p&gt;
+
+&lt;p&gt;Create &lt;code&gt;assets/css/reveal_custom.css&lt;/code&gt; with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;.reveal section h1,
+.reveal section h2,
+.reveal section h3 {
+  color: navy;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;questions&#34;&gt;Questions?&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://discourse.gohugo.io&#34; target=&#34;_blank&#34;&gt;Ask&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://sourcethemes.com/academic/docs/&#34; target=&#34;_blank&#34;&gt;Documentation&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

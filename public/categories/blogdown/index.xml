@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>blogdown on Angela&#39;s blog</title>
+    <link>/categories/blogdown/</link>
+    <description>Recent content in blogdown on Angela&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Fri, 30 Nov 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/blogdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Setting up the blog</title>
+      <link>/post/setting-up-the-blog/</link>
+      <pubDate>Fri, 30 Nov 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/setting-up-the-blog/</guid>
+      <description>I am referring primarily to the Blogdown book by Yihue to build this website. I am also working off Alison Premane Hills tutorial &amp;lsquo;Up and Running with blogdown. A workshop for the Portland R User Group&amp;rsquo;. [slides and link](&amp;ldquo;https://apreshill.rbind.io/talk/blogdown-meetup/&amp;quot;)
+blogdown::new_site() command to build a site
+serve_site() I need to find out when to use serve_site() instead of hugo_build() serve_site() seems to do the trick for me. When I run this command, I then can drag my public folder directly into the netlify page to manually deploy it.</description>
+    </item>
+    
+  </channel>
+</rss>
