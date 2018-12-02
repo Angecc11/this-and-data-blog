@@ -80,8 +80,8 @@ serve_site() I need to find out when to use serve_site() instead of hugo_build()
   
 
   
-  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Angela&#39;s blog">
-  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Angela&#39;s blog">
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Angela&#39;s personal learning blog">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Angela&#39;s personal learning blog">
   
 
   <link rel="manifest" href="/site.webmanifest">
@@ -99,9 +99,9 @@ serve_site() I need to find out when to use serve_site() instead of hugo_build()
   
   <meta property="twitter:card" content="summary">
   
-  <meta property="og:site_name" content="Angela&#39;s blog">
+  <meta property="og:site_name" content="Angela&#39;s personal learning blog">
   <meta property="og:url" content="/post/setting-up-the-blog/">
-  <meta property="og:title" content="Setting up the blog | Angela&#39;s blog">
+  <meta property="og:title" content="Setting up the blog | Angela&#39;s personal learning blog">
   <meta property="og:description" content="I am referring primarily to the Blogdown book by Yihue to build this website. I am also working off Alison Premane Hills tutorial &lsquo;Up and Running with blogdown. A workshop for the Portland R User Group&rsquo;. [slides and link](&ldquo;https://apreshill.rbind.io/talk/blogdown-meetup/&quot;)
 blogdown::new_site() command to build a site
 serve_site() I need to find out when to use serve_site() instead of hugo_build() serve_site() seems to do the trick for me. When I run this command, I then can drag my public folder directly into the netlify page to manually deploy it."><meta property="og:image" content="/img/rocco2.png">
@@ -116,7 +116,7 @@ serve_site() I need to find out when to use serve_site() instead of hugo_build()
 
   
 
-  <title>Setting up the blog | Angela&#39;s blog</title>
+  <title>Setting up the blog | Angela&#39;s personal learning blog</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -156,7 +156,7 @@ serve_site() I need to find out when to use serve_site() instead of hugo_build()
   <div class="container">
 
     
-      <a class="navbar-brand" href="/"><img src="/img/rocco2.png" alt="Angela&#39;s blog"></a>
+      <a class="navbar-brand" href="/"><img src="/img/rocco2.png" alt="Angela&#39;s personal learning blog"></a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -222,63 +222,6 @@ serve_site() I need to find out when to use serve_site() instead of hugo_build()
           <a class="nav-link" href="/#projects">
             
             <span>Projects</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link" href="/#publications_selected">
-            
-            <span>Publications</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link" href="/tutorial/">
-            
-            <span>Tutorials</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link" href="/#contact">
-            
-            <span>Contact</span>
             
           </a>
         </li>
@@ -463,111 +406,34 @@ save your logo image into the static folder. in the config.toml file go down to 
 <h2 id="choosing-a-theme">choosing a theme</h2>
 
 <p>I have considered various themes to try out by looking at some other blogs. Some of the ones that I like are <code>Beautiful Hugo</code>, <code>Blackburn</code> and also <code>Academic</code> but I feel that I am not academic enough to be using <code>Academic</code>!
-What I want is a simple page where I keep my learning efforts / posts and be able to find them easily. The <code>Academic</code> theme seems to have a section with a menu on the right that is easy to navigate. I could just remove the sections that are not relevant to me.
-I am going to go with  the <code>xmin</code> theme by Yihue Xie. If its good enough for Yihue then well it should be more than good enough for a complete novice. I think it may be better to stick with a simpler theme and then work through the blogdown book by Yihue himself.</p>
+What I want is a simple page where I keep my learning efforts / posts and be able to find them easily. The <code>Academic</code> theme seems to have a section with a menu on the right that is easy to navigate. I could just remove the sections that are not relevant to me.</p>
 
-<p>This is what the Yihue Xie has written in the <code>About</code> page for the <code>xmin</code> theme.</p>
+<h2 id="continuous-deployment">continuous deployment</h2>
 
-<p>*&rdquo;<strong>XMin</strong> is the first Hugo theme I have designed. The original reason that I wrote it was I needed a minimal example of Hugo themes when I was writing the  <a href="https://github.com/rstudio/blogdown" target="_blank"><strong>blogdown</strong></a> book. Basically I wanted a simple theme that supports a navigation menu, a home page, other single pages, lists of pages, blog posts, categories, tags, and RSS. That is all. Nothing fancy. In terms of CSS and JavaScript, I really want to keep them minimal. In fact, this theme does not contain any JavaScript code at all, although on this example website I did introduce some JavaScript code (still relatively simple anyway). The theme does not contain any images, either, and is pretty much a plain-text theme.
-The theme name &ldquo;XMin&rdquo; can be interpreted as &ldquo;<strong>X</strong>ie&rsquo;s <strong>Min</strong>imal theme&rdquo; (Xie is my last name) or &ldquo;e<strong>X</strong>tremely <strong>Min</strong>imal theme&rdquo;.&rdquo;*</p>
+<p>I had problems on an earlier version of the blog where continuous deployment was failing. For this version I started a new project using the git version control option and copied the git repository url into the first field.
+This was the url from the new repository on github that I also used in terminal <code>got clone repository url</code></p>
 
-<h1 id="config-toml">config.toml</h1>
+<h2 id="modifying-the-site-layout">modifying the site layout</h2>
 
-<p>For this example site, I defined permalinks for two sections, <code>post</code> and <code>note</code>, so that the links to pages under these directories will contain the date info, e.g., <code>https://xmin.yihui.name/post/2016/02/14/a-plain-markdown-post/</code>. This is optional, and it is up to your personal taste of URLs.</p>
+<p>While I like the Academic theme, there are many sections that are not relevant to me as I am a learner rather than a teacher.
+I am therefore modifying the layout to remove the pr-edefined sections such as Teaching, Publications, Recent and Upcoming Talks, Biography. I have to play around with it to figure it all out. The layout is specified in the <code>config.toml</code> file while the contents are under content / home.
+I can add sections I presume following the same format and file system.
+I have deleted several of the included files in the <code>content/home</code> folder. Specifically talks.md, teaching.md, talks_selected.md, skills.md, publications.md, publications_seleted.md, contact.md, experience.md</p>
 
-<pre><code>[permalinks]
-    post = &quot;/post/:year/:month/:day/:slug/&quot;
-    note = &quot;/note/:year/:month/:day/:slug/&quot;
-</code></pre>
+<p>I added a new section by essentially copying the <code>teaching.md</code> file which is an example of using the <code>custom</code> widget to create your own homepage section</p>
 
-<p>You can define the menu through <code>menu.main</code>, e.g.,</p>
-
-<pre><code>[[menu.main]]
-    name = &quot;Home&quot;
-    url = &quot;/&quot;
-    weight = 1
-[[menu.main]]
-    name = &quot;About&quot;
-    url = &quot;/about/&quot;
-    weight = 2
-[[menu.main]]
-    name = &quot;Categories&quot;
-    url = &quot;/categories/&quot;
-    weight = 3
-[[menu.main]]
-    name = &quot;Tags&quot;
-    url = &quot;/tags/&quot;
-    weight = 4
-[[menu.main]]
-    name = &quot;Subscribe&quot;
-    url = &quot;/index.xml&quot;
-</code></pre>
-
-<p>Alternatively, you can add <code>menu: main</code> to the YAML metadata of any of your pages, so that these pages will appear in the menu.</p>
-
-<p>The page footer can be defined in <code>.Params.footer</code>, and the text is treated as Markdown, e.g.,</p>
-
-<pre><code>[params]
-    footer = &quot;&amp;copy; [Yihui Xie](https://yihui.name) 2017&quot;
-</code></pre>
-
-<h1 id="custom-layouts">Custom layouts</h1>
-
-<p>There are two layout files under <code>layouts/partials/</code> that you may want to override: <code>head_custom.html</code> and <code>foot_custom.html</code>. This is how you inject arbitrary HTML code to the head and foot areas. For example, this site has a file <code>layouts/partials/foot_custom.html</code> to support LaTeX math via MathJax and center images automatically:</p>
-
-<pre><code class="language-html">&lt;script src=&quot;//yihui.name/js/math-code.js&quot;&gt;&lt;/script&gt;
-&lt;script async src=&quot;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&quot;&gt;
-&lt;/script&gt;
-
-&lt;script async src=&quot;//yihui.name/js/center-img.js&quot;&gt;&lt;/script&gt;
-</code></pre>
-
-<p>You can certainly enable highlight.js for syntax highlighting by yourself through <code>head_custom.html</code> and <code>foot_custom.html</code> if you want.</p>
-
-<p>If you do not like the default fonts (e.g., <code>Palatino</code>), you may provide your own <code>static/css/fonts.css</code> under the root directory of your website to override the <code>fonts.css</code> in the theme.</p>
-
-<h1 id="other-features">Other features</h1>
-
-<p>I could have added more features to this theme, but I decided not to, since I have no intention to make this theme feature-rich. However, I will teach you how. I have prepared several examples via pull requests at <a href="https://github.com/yihui/hugo-xmin/pulls" target="_blank">https://github.com/yihui/hugo-xmin/pulls</a>, so that you can see the implementations of these features when you check out the diffs in the pull requests. For example, you can:</p>
-
-<ul>
-<li><p><a href="https://github.com/yihui/hugo-xmin/pull/3" target="_blank">Enable Google Analytics</a></p></li>
-
-<li><p><a href="https://github.com/yihui/hugo-xmin/pull/4" target="_blank">Enable Disqus comments</a></p></li>
-
-<li><p><a href="https://github.com/yihui/hugo-xmin/pull/5" target="_blank">Enable highlight.js for syntax highlighting of code blocks</a></p></li>
-
-<li><p><a href="https://github.com/yihui/hugo-xmin/pull/2" target="_blank">Display categories and tags on a page</a></p></li>
-
-<li><p><a href="https://github.com/yihui/hugo-xmin/pull/7" target="_blank">Add a table of contents</a></p></li>
-
-<li><p><a href="https://github.com/yihui/hugo-xmin/pull/6" target="_blank">Add a link in the footer of each page to &ldquo;Edit this page&rdquo; on Github</a></p></li>
-</ul>
-
-<p>To fully understand these examples, you have to read <a href="https://bookdown.org/yihui/blogdown/templates.html" target="_blank">the section on Hugo templates</a> in the <strong>blogdown</strong> book.</p>
-
-<h1 id="design-philosophy">Design philosophy</h1>
-
-<p>Lastly, a few words about my design philosophy for this theme: I have been relying on existing frameworks like Bootstrap for years since I&rsquo;m not really a designer, and I was always scared by the complexity of CSS.</p>
-
-<p>When I started writing this theme, I asked myself, &ldquo;<em>What if I just write from scratch?</em>&rdquo; No Bootstrap. No Normalize.css. I don&rsquo;t care about IE (life could be so much easier without IE) or inconsistencies among browsers (for personal websites). As long as the theme looks okay in Chrome, Firefox, and Safari, I&rsquo;m done. Thanks to the simplicity of Markdown, you cannot really produce very complicated HTML, and I think styling the HTML output from Markdown is much simpler than general HTML documents. For example, I do not need to care much about form elements like textareas or buttons.</p>
-
-<p>After I finished this theme, I started to wonder why I&rsquo;d need <code>normalize.css</code> at all (it sounds like a religious belief). The default appearance of modern browsers actually looks pretty good in my eyes, after I tweak the typeface a little bit.</p>
-
-<p>Compared to inconsistencies across browsers, I care much more about these properties of HTML elements:</p>
-
-<ul>
-<li>Tables should always be centered, and striped tables are easier to read especially when they are wide. Tables should not have vertical borders.</li>
-<li>An image should be centered if it is the only child element of a paragraph.</li>
-<li>The <code>max-width</code> of images, videos, and iframes should be <code>100%</code>.</li>
-</ul>
-
-<p>I hope you can enjoy this theme. The source code is <a href="https://github.com/yihui/hugo-xmin" target="_blank">on Github</a>. Happy hacking!</p>
+<p>I amended the contact widget in <code>contact.md</code> active = false. I also set active= false in the <code>hero.md</code> file</p>
 
     </div>
 
     
 
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/blogdown-deploying/">blogdown deploying</a>
+  
+</div>
 
 
 
@@ -584,7 +450,7 @@ The theme name &ldquo;XMin&rdquo; can be interpreted as &ldquo;<strong>X</strong
   
   <div class="media-body">
     <h5 class="card-title" itemprop="name"><a href="/">Angela</a></h5>
-    <h6 class="card-subtitle">bit of this and that</h6>
+    <h6 class="card-subtitle">learning and documenting data analytics in R</h6>
     
     <ul class="network-icon" aria-hidden="true">
       

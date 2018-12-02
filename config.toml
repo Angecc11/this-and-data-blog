@@ -9,7 +9,7 @@
 baseurl = "https://this-and-data.netlify.com/"
 
 # Title of your site
-title = "Angela's blog"
+title = "Angela's personal learning blog"
 
 # Your copyright notice - appears in site footer.
 # To display a copyright symbol, type `&copy;`.
@@ -52,18 +52,18 @@ enableGitInfo = false
 
   # Your details.
   name = "Angela"
-  role = "bit of this and that"
+  role = "learning and documenting data analytics in R"
 
   # Organizations/Affiliations.
   #   Separate multiple entries with a comma, using the form: `[ {name="Org1", url=""}, {name="Org2", url=""} ]`.
-  organizations = [ { name = "This and that", url = "" } ]
+  #organizations = [ { name = "none", url = "" } ]
 
   gravatar = false  # Get your avatar from Gravatar.com? (true/false)
   avatar = "rocco2.png"  # Specify an avatar image (in `static/img/` folder) or delete value to disable avatar.
 
   # Details for the Contact Widget
  email_form = 0
- email = "angecc@icloud.com"
+ #email = "angecc@icloud.com"
   #address = "Building 1 Room 1, Stanford University, California, 90210, USA"
  # office_hours = "Monday 10:00 to 13:00 or email for appointment"
   #phone = "888 888 88 88"
@@ -290,31 +290,19 @@ enableGitInfo = false
   name = "Home"
   url = "#about"
   weight = 1
-
-[[menu.main]]
-  name = "Publications"
-  url = "#publications_selected"
-  weight = 4
-
-[[menu.main]]
+  
+  [[menu.main]]
   name = "Posts"
   url = "#posts"
   weight = 2
+
 
 [[menu.main]]
   name = "Projects"
   url = "#projects"
   weight = 3
 
-[[menu.main]]
-  name = "Tutorials"
-  url = "/tutorial/"
-  weight = 5
 
-[[menu.main]]
-  name = "Contact"
-  url = "#contact"
-  weight = 6
 
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Angela&#39;s blog on Angela&#39;s blog</title>
+    <title>Angela&#39;s personal learning blog on Angela&#39;s personal learning blog</title>
     <link>/</link>
-    <description>Recent content in Angela&#39;s blog on Angela&#39;s blog</description>
+    <description>Recent content in Angela&#39;s personal learning blog on Angela&#39;s personal learning blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
@@ -39,106 +39,23 @@ save your logo image into the static folder. in the config.toml file go down to 
 &lt;h2 id=&#34;choosing-a-theme&#34;&gt;choosing a theme&lt;/h2&gt;
 
 &lt;p&gt;I have considered various themes to try out by looking at some other blogs. Some of the ones that I like are &lt;code&gt;Beautiful Hugo&lt;/code&gt;, &lt;code&gt;Blackburn&lt;/code&gt; and also &lt;code&gt;Academic&lt;/code&gt; but I feel that I am not academic enough to be using &lt;code&gt;Academic&lt;/code&gt;!
-What I want is a simple page where I keep my learning efforts / posts and be able to find them easily. The &lt;code&gt;Academic&lt;/code&gt; theme seems to have a section with a menu on the right that is easy to navigate. I could just remove the sections that are not relevant to me.
-I am going to go with  the &lt;code&gt;xmin&lt;/code&gt; theme by Yihue Xie. If its good enough for Yihue then well it should be more than good enough for a complete novice. I think it may be better to stick with a simpler theme and then work through the blogdown book by Yihue himself.&lt;/p&gt;
+What I want is a simple page where I keep my learning efforts / posts and be able to find them easily. The &lt;code&gt;Academic&lt;/code&gt; theme seems to have a section with a menu on the right that is easy to navigate. I could just remove the sections that are not relevant to me.&lt;/p&gt;
 
-&lt;p&gt;This is what the Yihue Xie has written in the &lt;code&gt;About&lt;/code&gt; page for the &lt;code&gt;xmin&lt;/code&gt; theme.&lt;/p&gt;
+&lt;h2 id=&#34;continuous-deployment&#34;&gt;continuous deployment&lt;/h2&gt;
 
-&lt;p&gt;*&amp;rdquo;&lt;strong&gt;XMin&lt;/strong&gt; is the first Hugo theme I have designed. The original reason that I wrote it was I needed a minimal example of Hugo themes when I was writing the  &lt;a href=&#34;https://github.com/rstudio/blogdown&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;blogdown&lt;/strong&gt;&lt;/a&gt; book. Basically I wanted a simple theme that supports a navigation menu, a home page, other single pages, lists of pages, blog posts, categories, tags, and RSS. That is all. Nothing fancy. In terms of CSS and JavaScript, I really want to keep them minimal. In fact, this theme does not contain any JavaScript code at all, although on this example website I did introduce some JavaScript code (still relatively simple anyway). The theme does not contain any images, either, and is pretty much a plain-text theme.
-The theme name &amp;ldquo;XMin&amp;rdquo; can be interpreted as &amp;ldquo;&lt;strong&gt;X&lt;/strong&gt;ie&amp;rsquo;s &lt;strong&gt;Min&lt;/strong&gt;imal theme&amp;rdquo; (Xie is my last name) or &amp;ldquo;e&lt;strong&gt;X&lt;/strong&gt;tremely &lt;strong&gt;Min&lt;/strong&gt;imal theme&amp;rdquo;.&amp;rdquo;*&lt;/p&gt;
+&lt;p&gt;I had problems on an earlier version of the blog where continuous deployment was failing. For this version I started a new project using the git version control option and copied the git repository url into the first field.
+This was the url from the new repository on github that I also used in terminal &lt;code&gt;got clone repository url&lt;/code&gt;&lt;/p&gt;
 
-&lt;h1 id=&#34;config-toml&#34;&gt;config.toml&lt;/h1&gt;
+&lt;h2 id=&#34;modifying-the-site-layout&#34;&gt;modifying the site layout&lt;/h2&gt;
 
-&lt;p&gt;For this example site, I defined permalinks for two sections, &lt;code&gt;post&lt;/code&gt; and &lt;code&gt;note&lt;/code&gt;, so that the links to pages under these directories will contain the date info, e.g., &lt;code&gt;https://xmin.yihui.name/post/2016/02/14/a-plain-markdown-post/&lt;/code&gt;. This is optional, and it is up to your personal taste of URLs.&lt;/p&gt;
+&lt;p&gt;While I like the Academic theme, there are many sections that are not relevant to me as I am a learner rather than a teacher.
+I am therefore modifying the layout to remove the pr-edefined sections such as Teaching, Publications, Recent and Upcoming Talks, Biography. I have to play around with it to figure it all out. The layout is specified in the &lt;code&gt;config.toml&lt;/code&gt; file while the contents are under content / home.
+I can add sections I presume following the same format and file system.
+I have deleted several of the included files in the &lt;code&gt;content/home&lt;/code&gt; folder. Specifically talks.md, teaching.md, talks_selected.md, skills.md, publications.md, publications_seleted.md, contact.md, experience.md&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;[permalinks]
-    post = &amp;quot;/post/:year/:month/:day/:slug/&amp;quot;
-    note = &amp;quot;/note/:year/:month/:day/:slug/&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I added a new section by essentially copying the &lt;code&gt;teaching.md&lt;/code&gt; file which is an example of using the &lt;code&gt;custom&lt;/code&gt; widget to create your own homepage section&lt;/p&gt;
 
-&lt;p&gt;You can define the menu through &lt;code&gt;menu.main&lt;/code&gt;, e.g.,&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[[menu.main]]
-    name = &amp;quot;Home&amp;quot;
-    url = &amp;quot;/&amp;quot;
-    weight = 1
-[[menu.main]]
-    name = &amp;quot;About&amp;quot;
-    url = &amp;quot;/about/&amp;quot;
-    weight = 2
-[[menu.main]]
-    name = &amp;quot;Categories&amp;quot;
-    url = &amp;quot;/categories/&amp;quot;
-    weight = 3
-[[menu.main]]
-    name = &amp;quot;Tags&amp;quot;
-    url = &amp;quot;/tags/&amp;quot;
-    weight = 4
-[[menu.main]]
-    name = &amp;quot;Subscribe&amp;quot;
-    url = &amp;quot;/index.xml&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Alternatively, you can add &lt;code&gt;menu: main&lt;/code&gt; to the YAML metadata of any of your pages, so that these pages will appear in the menu.&lt;/p&gt;
-
-&lt;p&gt;The page footer can be defined in &lt;code&gt;.Params.footer&lt;/code&gt;, and the text is treated as Markdown, e.g.,&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[params]
-    footer = &amp;quot;&amp;amp;copy; [Yihui Xie](https://yihui.name) 2017&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h1 id=&#34;custom-layouts&#34;&gt;Custom layouts&lt;/h1&gt;
-
-&lt;p&gt;There are two layout files under &lt;code&gt;layouts/partials/&lt;/code&gt; that you may want to override: &lt;code&gt;head_custom.html&lt;/code&gt; and &lt;code&gt;foot_custom.html&lt;/code&gt;. This is how you inject arbitrary HTML code to the head and foot areas. For example, this site has a file &lt;code&gt;layouts/partials/foot_custom.html&lt;/code&gt; to support LaTeX math via MathJax and center images automatically:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;script src=&amp;quot;//yihui.name/js/math-code.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-&amp;lt;script async src=&amp;quot;//cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML&amp;quot;&amp;gt;
-&amp;lt;/script&amp;gt;
-
-&amp;lt;script async src=&amp;quot;//yihui.name/js/center-img.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can certainly enable highlight.js for syntax highlighting by yourself through &lt;code&gt;head_custom.html&lt;/code&gt; and &lt;code&gt;foot_custom.html&lt;/code&gt; if you want.&lt;/p&gt;
-
-&lt;p&gt;If you do not like the default fonts (e.g., &lt;code&gt;Palatino&lt;/code&gt;), you may provide your own &lt;code&gt;static/css/fonts.css&lt;/code&gt; under the root directory of your website to override the &lt;code&gt;fonts.css&lt;/code&gt; in the theme.&lt;/p&gt;
-
-&lt;h1 id=&#34;other-features&#34;&gt;Other features&lt;/h1&gt;
-
-&lt;p&gt;I could have added more features to this theme, but I decided not to, since I have no intention to make this theme feature-rich. However, I will teach you how. I have prepared several examples via pull requests at &lt;a href=&#34;https://github.com/yihui/hugo-xmin/pulls&#34; target=&#34;_blank&#34;&gt;https://github.com/yihui/hugo-xmin/pulls&lt;/a&gt;, so that you can see the implementations of these features when you check out the diffs in the pull requests. For example, you can:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/3&#34; target=&#34;_blank&#34;&gt;Enable Google Analytics&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/4&#34; target=&#34;_blank&#34;&gt;Enable Disqus comments&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/5&#34; target=&#34;_blank&#34;&gt;Enable highlight.js for syntax highlighting of code blocks&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/2&#34; target=&#34;_blank&#34;&gt;Display categories and tags on a page&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/7&#34; target=&#34;_blank&#34;&gt;Add a table of contents&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/yihui/hugo-xmin/pull/6&#34; target=&#34;_blank&#34;&gt;Add a link in the footer of each page to &amp;ldquo;Edit this page&amp;rdquo; on Github&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To fully understand these examples, you have to read &lt;a href=&#34;https://bookdown.org/yihui/blogdown/templates.html&#34; target=&#34;_blank&#34;&gt;the section on Hugo templates&lt;/a&gt; in the &lt;strong&gt;blogdown&lt;/strong&gt; book.&lt;/p&gt;
-
-&lt;h1 id=&#34;design-philosophy&#34;&gt;Design philosophy&lt;/h1&gt;
-
-&lt;p&gt;Lastly, a few words about my design philosophy for this theme: I have been relying on existing frameworks like Bootstrap for years since I&amp;rsquo;m not really a designer, and I was always scared by the complexity of CSS.&lt;/p&gt;
-
-&lt;p&gt;When I started writing this theme, I asked myself, &amp;ldquo;&lt;em&gt;What if I just write from scratch?&lt;/em&gt;&amp;rdquo; No Bootstrap. No Normalize.css. I don&amp;rsquo;t care about IE (life could be so much easier without IE) or inconsistencies among browsers (for personal websites). As long as the theme looks okay in Chrome, Firefox, and Safari, I&amp;rsquo;m done. Thanks to the simplicity of Markdown, you cannot really produce very complicated HTML, and I think styling the HTML output from Markdown is much simpler than general HTML documents. For example, I do not need to care much about form elements like textareas or buttons.&lt;/p&gt;
-
-&lt;p&gt;After I finished this theme, I started to wonder why I&amp;rsquo;d need &lt;code&gt;normalize.css&lt;/code&gt; at all (it sounds like a religious belief). The default appearance of modern browsers actually looks pretty good in my eyes, after I tweak the typeface a little bit.&lt;/p&gt;
-
-&lt;p&gt;Compared to inconsistencies across browsers, I care much more about these properties of HTML elements:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Tables should always be centered, and striped tables are easier to read especially when they are wide. Tables should not have vertical borders.&lt;/li&gt;
-&lt;li&gt;An image should be centered if it is the only child element of a paragraph.&lt;/li&gt;
-&lt;li&gt;The &lt;code&gt;max-width&lt;/code&gt; of images, videos, and iframes should be &lt;code&gt;100%&lt;/code&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I hope you can enjoy this theme. The source code is &lt;a href=&#34;https://github.com/yihui/hugo-xmin&#34; target=&#34;_blank&#34;&gt;on Github&lt;/a&gt;. Happy hacking!&lt;/p&gt;
+&lt;p&gt;I amended the contact widget in &lt;code&gt;contact.md&lt;/code&gt; active = false. I also set active= false in the &lt;code&gt;hero.md&lt;/code&gt; file&lt;/p&gt;
 </description>
     </item>
     
@@ -200,30 +117,6 @@ I am working through the Tidy Text Mining in R book by Julia Silge and David Rob
       
       <guid>/privacy/</guid>
       <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Example Talk</title>
-      <link>/talk/example/</link>
-      <pubDate>Sun, 01 Jan 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/talk/example/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;p&gt;Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.&lt;/p&gt;
-
-&lt;/div&gt;
-
-
-&lt;p&gt;Slides can be added in a few ways:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Create&lt;/strong&gt; slides using Academic&amp;rsquo;s &lt;em&gt;Slides&lt;/em&gt; feature and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Upload&lt;/strong&gt; an existing slide deck to &lt;code&gt;static/&lt;/code&gt; and link using &lt;code&gt;url_slides&lt;/code&gt; parameter in the front matter of the talk file&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Embed&lt;/strong&gt; your slides (e.g. Google Slides) or presentation video on this page using &lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34;&gt;shortcodes&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Further talk details can easily be added to this page using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
 </description>
     </item>
     

@@ -2,32 +2,26 @@
 # About/Biography widget.
 widget = "about"
 active = true
-date = 2016-04-20T00:00:00
+date = 2018-12-01T22:00:00
 
 # Order that this section will appear in.
-weight = 5
+weight = 6
 
 # List your academic interests.
 [interests]
   interests = [
-    "Artificial Intelligence",
-    "Computational Linguistics",
-    "Information Retrieval"
+    "Learning",
+    "Experimenting"
   ]
 
 # List your qualifications (such as academic degrees).
 [[education.courses]]
   course = " "
   institution = " "
-  year = 2012
-
-[[education.courses]]
-  course = " "
-  institution = " "
-  year = 2009
+  year = " "
 
  
 +++
 
-# Biography
+## Biography
 
