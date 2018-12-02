@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Text Mining on Angela&#39;s personal learning blog</title>
+    <link>/categories/text-mining/</link>
+    <description>Recent content in Text Mining on Angela&#39;s personal learning blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 02 Dec 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/text-mining/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Learning Text Mining </title>
+      <link>/post/learning-text-mining/</link>
+      <pubDate>Sun, 02 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/learning-text-mining/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

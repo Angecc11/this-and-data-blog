@@ -1,0 +1,27 @@
+---
+title: dplyr tips
+author: ''
+date: '2018-12-02'
+slug: dplyr-tips
+categories:
+  - dplyr
+tags:
+  - dplyr
+image:
+  caption: ''
+  focal_point: ''
+---
+
+here I am going to put all the different things I have learned in dplyr for easy reference.
+
+more tips from Rladies, #rstats etc from twitter or just new things to me!
+
+`%T>%`  from `magrittr` where you can print or some other function with pipes without breaking up your code
+
+`plotly`  can create plot in ggplot and then put it in a call to plotly  `plotly::ggplotly` to create interactive graphics
+
+`View` has a `title` argument you can supply.
+
+
+if `count` does not work make sure that `plyr` package has not been loaded after `dplyr` as it also has a `count` function.
+restart your r session and make sure that the `dplyr` package is loaded after `plyr` and not before.

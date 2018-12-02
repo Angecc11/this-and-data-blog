@@ -4,6 +4,22 @@
     
     <url>
     
+      <loc>/post/learning-text-mining/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/post/dplyr-tips/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>/post/setting-up-the-blog/</loc>
       <lastmod>2018-11-30T00:00:00+00:00</lastmod>
     </url>
@@ -135,6 +151,15 @@
     
     <url>
     
+      <loc>/categories/text-mining/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
       <loc>/categories/blogdown/</loc>
       <lastmod>2018-11-30T00:00:00+00:00</lastmod>
       <priority>0</priority>
@@ -146,6 +171,24 @@
     
       <loc>/tags/blogdown-deploying/</loc>
       <lastmod>2018-11-30T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/dplyr/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/categories/dplyr/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -173,6 +216,24 @@
     
       <loc>/tags/regression/</loc>
       <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/categories/tidy-text/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    <url>
+    
+      <loc>/tags/tidytext/</loc>
+      <lastmod>2018-12-02T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
