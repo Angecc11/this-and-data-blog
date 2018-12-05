@@ -25,3 +25,36 @@ more tips from Rladies, #rstats etc from twitter or just new things to me!
 
 if `count` does not work make sure that `plyr` package has not been loaded after `dplyr` as it also has a `count` function.
 restart your r session and make sure that the `dplyr` package is loaded after `plyr` and not before.
+
+### not from twitter but how to use bind_rows
+
+`bind_rows` instead of `do.call(rbind,dfs)` for binding dataframes into one.
+?bind_rows
+
+```
+one <- mtcars[1:4, ]
+two <- mtcars[11:14, ]
+
+
+# You can supply data frames as arguments:
+bind_rows(mutate(one, author = "one", story = "uno"),
+          mutate(two, author = "two", story = "duo"))
+```
+here it seems you can bind rows into the one dataframe and also add new variables whose values depend on the rows from which they came.
+This I came across in the Text Mining with R book Section 1.4 The Gutenbergr package
+
+```
+frequency <- bind_rows(mutate(tidy_bronte, author = "Brontë Sisters"),
+                       mutate(tidy_hgwells, author = "H.G. Wells"), 
+                       mutate(tidy_books, author = "Jane Austen")) %>% 
+  mutate(word = str_extract(word, "[a-z']+")) %>%
+  count(author, word) %>%
+  group_by(author) %>%
+  mutate(proportion = n / sum(n)) %>% 
+  select(-n) %>% 
+  spread(author, proportion) %>% 
+  gather(author, proportion, `Brontë Sisters`:`H.G. Wells`)
+```
+
+`dplyr`
+print(n=Inf) ## want to see all the rows printed

@@ -11,6 +11,180 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Christmas Songs Lyrics</title>
+      <link>/post/christmas-songs-lyrics/</link>
+      <pubDate>Tue, 04 Dec 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/christmas-songs-lyrics/</guid>
+      <description>
+
+
+&lt;div id=&#34;christmas-songs-lyrics&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Christmas songs lyrics&lt;/h2&gt;
+&lt;p&gt;Today I am going to look at the lyrics of Christmas songs. A certain song that has been around for many many years is not being played on local radios this year as the lyrics are suddenly considered politically incorrect or following the me too movement. As I am also learning text mining at the moment I thought it might be a good idea to have a look at the songs we hear at this time of year.&lt;/p&gt;
+&lt;p&gt;There are many places where you can download lyrics from the internet. The geniusr package by Ewenme provide tools for working directly in R with the Genius API. You first need to authenticate to be able to use this package. See [Github repo] (“&lt;a href=&#34;https://github.com/ewenme/geniusr&#34; class=&#34;uri&#34;&gt;https://github.com/ewenme/geniusr&lt;/a&gt;”) instructions on how to create a Genius API client and to generate an access token. You can then setyour credentials in the System Environment variable GENIUS_API_TOKEN by calling the genius_token() function and entering your Genius Client Access Token when prompted. As with all api tokens this should be kept somewhere private. To use the package you will need to load the &lt;code&gt;geniusr&lt;/code&gt; library and call the &lt;code&gt;genius_token()&lt;/code&gt; function when prompted. If you try to use a function without entering your credentials you may notice a prompt in the console ‘Please enter your Genius Client Access Token and press enter:’ as it waits for your access token to be entered&lt;/p&gt;
+&lt;div id=&#34;the-geniusr-package&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;the &lt;code&gt;geniusr&lt;/code&gt; package&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;get_album_meta(album_id = 337082)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-1-x-9&#34;&gt;A tibble: 1 x 9&lt;/h1&gt;
+&lt;p&gt;album_id album_name album_url album_cover_art_url album_release_d… pageviews artist_id artist_name artist_url&lt;br /&gt;
+&lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;&lt;br /&gt;
+1 337082 DAMN. &lt;a href=&#34;https://geniu&#34; class=&#34;uri&#34;&gt;https://geniu&lt;/a&gt;… &lt;a href=&#34;https://images.genius.c&#34; class=&#34;uri&#34;&gt;https://images.genius.c&lt;/a&gt;… 2017-04-14 35922767 1421 Kendrick L… &lt;a href=&#34;https://geniu&#34; class=&#34;uri&#34;&gt;https://geniu&lt;/a&gt;…&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(geniusr)
+library(dplyr)
+library(tidytext)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;There are instructions on how to use the &lt;code&gt;geniusr&lt;/code&gt; package in the &lt;code&gt;readme.md&lt;/code&gt; file on github (“&lt;a href=&#34;https://github.com/ewenme/geniusr&#34; class=&#34;uri&#34;&gt;https://github.com/ewenme/geniusr&lt;/a&gt;”)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;library(geniusr)
+library(dplyr)
+library(tidytext)
+
+# Get song search results for the term &amp;#39;good morning&amp;#39;
+gm_search &amp;lt;- search_song(search_term = &amp;quot;good morning&amp;quot;) %&amp;gt;%
+  # look for Kanye as the primary artist
+  filter(artist_name == &amp;quot;Kanye West&amp;quot;)
+
+gm_search&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-1-x-5&#34;&gt;A tibble: 1 x 5&lt;/h1&gt;
+&lt;p&gt;song_id song_name song_lyrics_url artist_id artist_name &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;&lt;br /&gt;
+1 1428 Good Morning &lt;a href=&#34;https://genius.com/Kanye-west-good-morning-lyrics&#34; class=&#34;uri&#34;&gt;https://genius.com/Kanye-west-good-morning-lyrics&lt;/a&gt; 72 Kanye West&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;# get lyrics
+gm_lyrics &amp;lt;- scrape_lyrics_id(song_id = gm_search$song_id)
+gm_lyrics&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-53-x-5&#34;&gt;A tibble: 53 x 5&lt;/h1&gt;
+&lt;p&gt;line song_id song_name artist_id artist_name &lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;&lt;br /&gt;
+1 Uhh.. uhh 1428 Good Morning 72 Kanye West 2 Uhh.. uhh 1428 Good Morning 72 Kanye West 3 Good morning! 1428 Good Morning 72 Kanye West 4 Good morning! 1428 Good Morning 72 Kanye West 5 Good morning! 1428 Good Morning 72 Kanye West 6 Good morning! 1428 Good Morning 72 Kanye West 7 Wake up Mr. West, Mr. West 1428 Good Morning 72 Kanye West 8 Mr. Fresh, Mister, by himself he’s so impressed 1428 Good Morning 72 Kanye West 9 I mean damn, did you even see the test? 1428 Good Morning 72 Kanye West 10 You got D’s, muthafucka D’s, Rosie Perez 1428 Good Morning 72 Kanye West # … with 43 more rows&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;# tokenization of the lyrics
+gm_lyrics %&amp;gt;%
+  # get bigrams
+  unnest_tokens(bigram, line, token = &amp;quot;ngrams&amp;quot;, n = 2) %&amp;gt;%
+  # count bigram frequency
+  count(bigram) %&amp;gt;%
+  # look for good morning
+  filter(bigram == &amp;quot;good morning&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-1-x-2&#34;&gt;A tibble: 1 x 2&lt;/h1&gt;
+&lt;p&gt;bigram n &lt;chr&gt; &lt;int&gt; 1 good morning 18&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;However I am getting some errors when trying to get the lyrics for particular song ids. For instance I can retrieve the lyrics for song id 378424 Reindeer(s) Are Better Than People (Ft. Jonathan Groff)s but I get an error for ‘Grandma got run over by a reindeer’ song id 639195. From googling and the issues page on the github repository it seems to be do with there been multiple songs with the same title. I’m not sure&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Error in bind_rows_(x, .id) : Argument 6 is a list, must contain atomic vectors&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div id=&#34;search-for-songs-with-the-term-reindeer-in-the-title&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;search for songs with the term ‘reindeer’ in the title&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;library(geniusr)
+library(dplyr)
+library(tidytext)
+
+# Get song search results for the term &amp;#39;reindeer&amp;#39;
+search_song(search_term = &amp;quot;reindeer&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-10-x-5&#34;&gt;A tibble: 10 x 5&lt;/h1&gt;
+&lt;p&gt;song_id song_name song_lyrics_url artist_id artist_name&lt;br /&gt;
+&lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;&lt;br /&gt;
+1 2117963 Rudolph the Red-Nosed Reindeer &lt;a href=&#34;https://genius.com/Christmas-songs-rudolph-the-red&#34; class=&#34;uri&#34;&gt;https://genius.com/Christmas-songs-rudolph-the-red&lt;/a&gt;… 404512 Christmas Songs 2 3174946 Reindeer King &lt;a href=&#34;https://genius.com/Tori-amos-reindeer-king-lyrics&#34; class=&#34;uri&#34;&gt;https://genius.com/Tori-amos-reindeer-king-lyrics&lt;/a&gt; 34286 Tori Amos&lt;br /&gt;
+3 378424 Reindeer(s) Are Better Than People … &lt;a href=&#34;https://genius.com/Walt-disney-records-reindeers-a&#34; class=&#34;uri&#34;&gt;https://genius.com/Walt-disney-records-reindeers-a&lt;/a&gt;… 32992 Walt Disney Re… 4 3341368 Rudolph the Rednose Reindeer (Ft. D… &lt;a href=&#34;https://genius.com/Dmx-rudolph-the-rednose-reindee&#34; class=&#34;uri&#34;&gt;https://genius.com/Dmx-rudolph-the-rednose-reindee&lt;/a&gt;… 77 DMX&lt;br /&gt;
+5 191693 Rudolph The Red Nosed Reindeer &lt;a href=&#34;https://genius.com/George-strait-rudolph-the-red-n&#34; class=&#34;uri&#34;&gt;https://genius.com/George-strait-rudolph-the-red-n&lt;/a&gt;… 15101 George Strait&lt;br /&gt;
+6 639195 Grandma Got Run Over by a Reindeer &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-&lt;/a&gt;… 289481 Elmo &amp;amp; Patsy&lt;br /&gt;
+7 512798 Rudolph The Red-Nosed Reindeer &lt;a href=&#34;https://genius.com/Gene-autry-rudolph-the-red-nose&#34; class=&#34;uri&#34;&gt;https://genius.com/Gene-autry-rudolph-the-red-nose&lt;/a&gt;… 225402 Gene Autry&lt;br /&gt;
+8 1300398 Rudolph The Red-Nosed Reindeer &lt;a href=&#34;https://genius.com/Destinys-child-rudolph-the-red-&#34; class=&#34;uri&#34;&gt;https://genius.com/Destinys-child-rudolph-the-red-&lt;/a&gt;… 2831 Destiny’s Child 9 208203 Rudolph The Red-Nosed Reindeer &lt;a href=&#34;https://genius.com/Dolly-parton-rudolph-the-red-no&#34; class=&#34;uri&#34;&gt;https://genius.com/Dolly-parton-rudolph-the-red-no&lt;/a&gt;… 20955 Dolly Parton&lt;br /&gt;
+10 1466805 Rudolph the Red Nosed Reindeer &lt;a href=&#34;https://genius.com/Dean-martin-rudolph-the-red-nos&#34; class=&#34;uri&#34;&gt;https://genius.com/Dean-martin-rudolph-the-red-nos&lt;/a&gt;… 29189 Dean Martin&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;select a song and get the lyrics using the song_id&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# get lyrics
+scrape_lyrics_id(song_id = 378424)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-20-x-5&#34;&gt;A tibble: 20 x 5&lt;/h1&gt;
+&lt;p&gt;line song_id song_name artist_id artist_name&lt;br /&gt;
+&lt;chr&gt; &lt;int&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;&lt;br /&gt;
+1 Reindeers are better than people 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 2 Sven, don’t you think that’s true? 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 3 (As Sven) 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 4 Yeah, people will beat you 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 5 And curse you and cheat you 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 6 Every one of them’s bad except you 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 7 (As himself) 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 8 Oh, thanks buddy 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 9 But people smell better than reind… 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 10 Sven, don’t you think I’m right? 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 11 (As Sven) 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 12 That’s once again true 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 13 For all except you 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 14 (As himself) 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 15 You got me, let’s call it a night 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 16 (As Sven) 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 17 Good night 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 18 (As himself) 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 19 Don’t let the frostbite 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor… 20 Bite… 378424 Reindeer(s) Are Better Than People (Ft. Jonathan… 32992 Walt Disney Recor…&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;# get lyrics
+scrape_lyrics_id(song_id = 639195)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Error in bind_rows_(x, .id) : Argument 6 is a list, must contain atomic vectors&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I found this function in the [github issues page] (“&lt;a href=&#34;https://github.com/ewenme/geniusr/issues/1&#34; class=&#34;uri&#34;&gt;https://github.com/ewenme/geniusr/issues/1&lt;/a&gt;”) which seems to be an edited version of the code behind the &lt;code&gt;scrape_lyrics_id&lt;/code&gt; function. However the lyrics it pulls here do not seem to be lyrics for the song requested!&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;line song_id song_name artist_id artist_name&lt;br /&gt;
+639195 Grandma Got Run Over by a Reindeer &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-&lt;/a&gt;… 289481 Elmo &amp;amp; Patsy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;library(rvest)
+lyric_scrape2 &amp;lt;- function(songid){
+# changed url
+session &amp;lt;- suppressWarnings(read_html(paste0(&amp;quot;https://genius.com/&amp;quot;,songid)))
+lyrics &amp;lt;- html_nodes(session,&amp;quot;.lyrics p&amp;quot;)
+xml_find_all(lyrics, &amp;quot;.//br&amp;quot;) %&amp;gt;% xml_add_sibling(&amp;quot;p&amp;quot;,&amp;quot;\n&amp;quot;)
+xml_find_all(lyrics, &amp;quot;.//br&amp;quot;) %&amp;gt;% xml_remove()
+lyrics &amp;lt;- unlist(html_text(lyrics))
+lyrics &amp;lt;- as.character(lyrics)
+# changed gsub parameters
+lyrics &amp;lt;- gsub(&amp;quot;[\r\n]&amp;quot;, &amp;quot; &amp;quot;, lyrics) 
+lyrics &amp;lt;- gsub( &amp;quot; *\\[.*?\\] *&amp;quot;, &amp;quot; &amp;quot;, lyrics)
+return(lyrics)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;lyric_scrape2(639195)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[1] “Yeah It feels so good to be back Thewz If I had the time I would let them stop me for photos, switch my life into slow mo A lot hoes are out for the ring but I ain’t frodo A lord tho, with the flow colder than the north pole I’ll be the best until they stop the beating in my torso Whoa, remember when we used to brag about 2 zeroes on a check, now that’s just a sad amount The little things turned to microscopic Then focus switched from hot wheels to hot chicks From hot chicks to hot whips Money over everything, get no bitches with out it Now I’m scoopin groupies off this rap shit Had to beg to bend them over now I got em doing back flips All up on my mattress, a model, an actress Get em three at a time, call me Mr. hat trick A star like Patrick, buzzin like Shwayze Been killin’ this rap shit since Brenda had her baby Nah I’m playin’, I’m much too young for that DJs get your LT on and run it back Like the middle pocket on my jeans, yeah I stay fly I’m slick, but never catch me slippin’ like KY The answer like AI or A,B,C I remember when the clubs had to see ID Now they see dub z, and my fly mami Say peace to the owner, he say “it’s on me” Now we treat champagne like alcoholic rain In the VIP section like it ain’t no thing It’s funny how the models follow Ciroc bottles And they’re all on coke so when we fuck it’s full throttle This is everything I used to dream about Now we’re in the range rove, baby girl screaming out The window, just sparked up the indo I did it for myself, now it’s time to help my kinfolk Outro If dreams come true… Sound Tribe all day every day mother fucker”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;These turn out to be the lyrics for a song called “If dreams come true” by Thewz where the lyrics are at the following url: “&lt;a href=&#34;https://genius.com/639195&#34; class=&#34;uri&#34;&gt;https://genius.com/639195&lt;/a&gt;” Doing a search now for songs with the term “if dreams come true” by Thewz to see what song id yields.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Get song search results for the term &amp;quot;if dreams come true&amp;quot;
+search_song(search_term = &amp;quot;if dreams come true&amp;quot;) %&amp;gt;%
+  # look for Kanye as the primary artist
+  filter(artist_name == &amp;quot;Thewz&amp;quot;) %&amp;gt;%
+    filter(artist_id == 18260)
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-1-x-5-1&#34;&gt;A tibble: 1 x 5&lt;/h1&gt;
+&lt;p&gt;song_id song_name song_lyrics_url artist_id artist_name &lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;int&gt; &lt;chr&gt;&lt;br /&gt;
+1 68156 If Dreams Come True &lt;a href=&#34;https://genius.com/Thewz-if-dreams-come-true-lyrics&#34; class=&#34;uri&#34;&gt;https://genius.com/Thewz-if-dreams-come-true-lyrics&lt;/a&gt; 18260 Thewz&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now getting the lyrics for the song id 68156&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;scrape_lyrics_id(song_id = 68156)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This however also yields an error in bind rows &amp;gt; error in bind_rows_(x, .id) : Argument 5 is a list, must contain atomic vectors&lt;/p&gt;
+&lt;p&gt;I should figure out where the song id is stored and how it relates the url of the song lyrics.&lt;/p&gt;
+&lt;p&gt;Back to ‘Grandma got run over by a reindeer’ …&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;get_song_meta(639195)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Again this does not work. Try another function called &lt;code&gt;scrape_lyrics_url&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;?scrape_lyrics_url&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Scrape lyrics from a Genius’ lyric page using it’s associated URL. Best used with scrape_tracklist, when song IDs aren’t returned - otherwise, scrape_lyrics_id is recommended.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The search song function returns a &lt;code&gt;song_lyrics_url&lt;/code&gt; so will try that now.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;grandma &amp;lt;-search_song(search_term = &amp;quot;grandma got run over by a reindeer&amp;quot;)  %&amp;gt;%
+    filter(artist_id == 289481)
+grandma$song_lyrics_url
+&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;p&gt;[1] “&lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-over-by-a-reindeer-lyrics&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-over-by-a-reindeer-lyrics&lt;/a&gt;”&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Now I have a url for the lyrics I can try to get the lyrics using the &lt;code&gt;scrape_lyrics_url&lt;/code&gt; function&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+scrape_lyrics_url(song_lyrics_url = &amp;quot;https://genius.com/Elmo-and-patsy-grandma-got-run-over-by-a-reindeer-lyrics&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;blockquote&gt;
+&lt;h1 id=&#34;a-tibble-60-x-4&#34;&gt;A tibble: 60 x 4&lt;/h1&gt;
+&lt;p&gt;line song_lyrics_url song_name artist_name &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;&lt;br /&gt;
+1 Grandma got runned over by a… &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 2 Walking home from our house … &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 3 You can say there’s no such … &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 4 But as for me and Grandpa, w… &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 5 She’d been drinkin’ too much… &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 6 And we’d begged her not to go &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 7 But she’d left her medication &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 8 So she stumbled out the door… &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 9 When they found her Christma… &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… 10 At the scene of the attack &lt;a href=&#34;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&#34; class=&#34;uri&#34;&gt;https://genius.com/Elmo-and-patsy-grandma-got-run-ove&lt;/a&gt;… Grandma Got Run Over by … Elmo &amp;amp; Pat… # … with 50 more rows&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;This works for getting the lyrics for song ids where it is not possible due to the errors above with the song_id. I would still like to know where the song_id is coming from though! This is where I leave this for now. I can get lyrics for a particular song by using either the &lt;code&gt;search_song&lt;/code&gt; function with the argument &lt;code&gt;search_term = &amp;quot;search term&amp;quot;&lt;/code&gt; and then by using either the &lt;code&gt;scrape_lyrics_id&lt;/code&gt; function with the song_id or alternatively when that is not possible by using the &lt;code&gt;scrape_lyrics_url&lt;/code&gt; with the &lt;code&gt;song_lyrics_url&lt;/code&gt; returned in the &lt;code&gt;search_song&lt;/code&gt; results&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;next&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;next&lt;/h3&gt;
+&lt;p&gt;need a function to read in lyrics programatically rather than specifyng the song_id or song_lyrics_url for each song.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Learning Text Mining </title>
       <link>/post/learning-text-mining/</link>
       <pubDate>Sun, 02 Dec 2018 00:00:00 +0000</pubDate>
@@ -19,7 +193,45 @@
       <description>
 
 
-
+&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;R Markdown&lt;/h1&gt;
+&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href=&#34;http://rmarkdown.rstudio.com&#34; class=&#34;uri&#34;&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can embed an R code chunk like this:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(cars)
+##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00
+fit &amp;lt;- lm(dist ~ speed, data = cars)
+fit
+## 
+## Call:
+## lm(formula = dist ~ speed, data = cars)
+## 
+## Coefficients:
+## (Intercept)        speed  
+##     -17.579        3.932&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;including-plots&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Including Plots&lt;/h1&gt;
+&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
+pie(
+  c(280, 60, 20),
+  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
+  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
+  init.angle = -50, border = NA
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
+&lt;img src=&#34;/post/2018-12-02-learning-text-mining_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;
+Figure 1: A fancy pie chart.
+&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -38,6 +250,29 @@
 &lt;p&gt;&lt;code&gt;plotly&lt;/code&gt; can create plot in ggplot and then put it in a call to plotly &lt;code&gt;plotly::ggplotly&lt;/code&gt; to create interactive graphics&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;View&lt;/code&gt; has a &lt;code&gt;title&lt;/code&gt; argument you can supply.&lt;/p&gt;
 &lt;p&gt;if &lt;code&gt;count&lt;/code&gt; does not work make sure that &lt;code&gt;plyr&lt;/code&gt; package has not been loaded after &lt;code&gt;dplyr&lt;/code&gt; as it also has a &lt;code&gt;count&lt;/code&gt; function. restart your r session and make sure that the &lt;code&gt;dplyr&lt;/code&gt; package is loaded after &lt;code&gt;plyr&lt;/code&gt; and not before.&lt;/p&gt;
+&lt;div id=&#34;not-from-twitter-but-how-to-use-bind_rows&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;not from twitter but how to use bind_rows&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;bind_rows&lt;/code&gt; instead of &lt;code&gt;do.call(rbind,dfs)&lt;/code&gt; for binding dataframes into one. ?bind_rows&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;one &amp;lt;- mtcars[1:4, ]
+two &amp;lt;- mtcars[11:14, ]
+
+
+# You can supply data frames as arguments:
+bind_rows(mutate(one, author = &amp;quot;one&amp;quot;, story = &amp;quot;uno&amp;quot;),
+          mutate(two, author = &amp;quot;two&amp;quot;, story = &amp;quot;duo&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;here it seems you can bind rows into the one dataframe and also add new variables whose values depend on the rows from which they came. This I came across in the Text Mining with R book Section 1.4 The Gutenbergr package&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;frequency &amp;lt;- bind_rows(mutate(tidy_bronte, author = &amp;quot;Brontë Sisters&amp;quot;),
+                       mutate(tidy_hgwells, author = &amp;quot;H.G. Wells&amp;quot;), 
+                       mutate(tidy_books, author = &amp;quot;Jane Austen&amp;quot;)) %&amp;gt;% 
+  mutate(word = str_extract(word, &amp;quot;[a-z&amp;#39;]+&amp;quot;)) %&amp;gt;%
+  count(author, word) %&amp;gt;%
+  group_by(author) %&amp;gt;%
+  mutate(proportion = n / sum(n)) %&amp;gt;% 
+  select(-n) %&amp;gt;% 
+  spread(author, proportion) %&amp;gt;% 
+  gather(author, proportion, `Brontë Sisters`:`H.G. Wells`)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt; print(n=Inf) ## want to see all the rows printed&lt;/p&gt;
+&lt;/div&gt;
 </description>
     </item>
     
@@ -87,6 +322,11 @@ I have deleted several of the included files in the &lt;code&gt;content/home&lt;
 &lt;p&gt;I added a new section by essentially copying the &lt;code&gt;teaching.md&lt;/code&gt; file which is an example of using the &lt;code&gt;custom&lt;/code&gt; widget to create your own homepage section&lt;/p&gt;
 
 &lt;p&gt;I amended the contact widget in &lt;code&gt;contact.md&lt;/code&gt; active = false. I also set active= false in the &lt;code&gt;hero.md&lt;/code&gt; file&lt;/p&gt;
+
+&lt;h2 id=&#34;latest-site-update&#34;&gt;latest site update&lt;/h2&gt;
+
+&lt;p&gt;I am happy enough now that I have the blog up and running. There are a few more modifications I will make to personalise the site.
+I am happy that the continuous deployment is working on netlify.&lt;/p&gt;
 </description>
     </item>
     

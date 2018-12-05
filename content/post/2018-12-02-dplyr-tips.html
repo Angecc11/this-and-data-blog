@@ -20,3 +20,26 @@ image:
 <p><code>plotly</code> can create plot in ggplot and then put it in a call to plotly <code>plotly::ggplotly</code> to create interactive graphics</p>
 <p><code>View</code> has a <code>title</code> argument you can supply.</p>
 <p>if <code>count</code> does not work make sure that <code>plyr</code> package has not been loaded after <code>dplyr</code> as it also has a <code>count</code> function. restart your r session and make sure that the <code>dplyr</code> package is loaded after <code>plyr</code> and not before.</p>
+<div id="not-from-twitter-but-how-to-use-bind_rows" class="section level3">
+<h3>not from twitter but how to use bind_rows</h3>
+<p><code>bind_rows</code> instead of <code>do.call(rbind,dfs)</code> for binding dataframes into one. ?bind_rows</p>
+<pre><code>one &lt;- mtcars[1:4, ]
+two &lt;- mtcars[11:14, ]
+
+
+# You can supply data frames as arguments:
+bind_rows(mutate(one, author = &quot;one&quot;, story = &quot;uno&quot;),
+          mutate(two, author = &quot;two&quot;, story = &quot;duo&quot;))</code></pre>
+<p>here it seems you can bind rows into the one dataframe and also add new variables whose values depend on the rows from which they came. This I came across in the Text Mining with R book Section 1.4 The Gutenbergr package</p>
+<pre><code>frequency &lt;- bind_rows(mutate(tidy_bronte, author = &quot;Brontë Sisters&quot;),
+                       mutate(tidy_hgwells, author = &quot;H.G. Wells&quot;), 
+                       mutate(tidy_books, author = &quot;Jane Austen&quot;)) %&gt;% 
+  mutate(word = str_extract(word, &quot;[a-z&#39;]+&quot;)) %&gt;%
+  count(author, word) %&gt;%
+  group_by(author) %&gt;%
+  mutate(proportion = n / sum(n)) %&gt;% 
+  select(-n) %&gt;% 
+  spread(author, proportion) %&gt;% 
+  gather(author, proportion, `Brontë Sisters`:`H.G. Wells`)</code></pre>
+<p><code>dplyr</code> print(n=Inf) ## want to see all the rows printed</p>
+</div>

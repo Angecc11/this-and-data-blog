@@ -42,3 +42,8 @@ I have deleted several of the included files in the `content/home` folder. Speci
 I added a new section by essentially copying the `teaching.md` file which is an example of using the `custom` widget to create your own homepage section
 
 I amended the contact widget in `contact.md` active = false. I also set active= false in the `hero.md` file
+
+## latest site update
+
+I am happy enough now that I have the blog up and running. There are a few more modifications I will make to personalise the site.
+I am happy that the continuous deployment is working on netlify.

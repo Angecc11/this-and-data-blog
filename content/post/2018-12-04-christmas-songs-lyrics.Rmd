@@ -1,0 +1,282 @@
+---
+title: Christmas Songs Lyrics
+author: Angela
+date: '2018-12-04'
+slug: christmas-songs-lyrics
+categories:
+  - lyrics
+  - Text Mining
+  - geniusr
+tags:
+  - tidytext
+image:
+  caption: ''
+  focal_point: ''
+---
+## Christmas songs lyrics
+Today I am going to look at the lyrics of Christmas songs. A certain song that has been around for many many years is not being played on local radios this year as the lyrics are suddenly considered politically incorrect or following the me too movement.
+As I am also learning text mining at the moment I thought it might be a good idea to have a look at the songs we hear at this time of year.
+
+There are many places where you can download lyrics from the internet. The geniusr package  by Ewenme provide tools for working directly in R with the Genius API. You first need to authenticate to be able to use this package. See [Github repo] ("https://github.com/ewenme/geniusr") instructions on how to create a Genius API client and to generate an access token.
+You can then setyour credentials in the System Environment variable GENIUS_API_TOKEN by calling the genius_token() function and entering your Genius Client Access Token when prompted. 
+As with all api tokens this should be kept somewhere private. 
+To use the package you will need to load the `geniusr` library and call the `genius_token()` function when prompted.
+If you try to use a function without entering your credentials you may notice a prompt in the console 'Please enter your Genius Client Access Token and press enter:' as it waits for your access token to be entered
+
+### the `geniusr` package
+
+```
+get_album_meta(album_id = 337082)
+```
+
+># A tibble: 1 x 9
+  album_id album_name album_url      album_cover_art_url      album_release_d… pageviews artist_id artist_name artist_url    
+     <int> <chr>      <chr>          <chr>                    <chr>                <int>     <int> <chr>       <chr>         
+1   337082 DAMN.      https://geniu… https://images.genius.c… 2017-04-14        35922767      1421 Kendrick L… https://geniu…
+
+```{r, message = FALSE}
+library(geniusr)
+library(dplyr)
+library(tidytext)
+
+```
+
+There are instructions on how to use the `geniusr` package in the `readme.md` file on github ("https://github.com/ewenme/geniusr")
+
+```
+library(geniusr)
+library(dplyr)
+library(tidytext)
+
+# Get song search results for the term 'good morning'
+gm_search <- search_song(search_term = "good morning") %>%
+  # look for Kanye as the primary artist
+  filter(artist_name == "Kanye West")
+
+gm_search
+```
+># A tibble: 1 x 5
+  song_id song_name    song_lyrics_url                                   artist_id artist_name
+    <int> <chr>        <chr>                                                 <int> <chr>      
+1    1428 Good Morning https://genius.com/Kanye-west-good-morning-lyrics        72 Kanye West 
+
+```
+# get lyrics
+gm_lyrics <- scrape_lyrics_id(song_id = gm_search$song_id)
+gm_lyrics
+```
+># A tibble: 53 x 5
+   line                                            song_id song_name    artist_id artist_name
+   <chr>                                             <int> <chr>            <int> <chr>      
+ 1 Uhh.. uhh                                          1428 Good Morning        72 Kanye West 
+ 2 Uhh.. uhh                                          1428 Good Morning        72 Kanye West 
+ 3 Good morning!                                      1428 Good Morning        72 Kanye West 
+ 4 Good morning!                                      1428 Good Morning        72 Kanye West 
+ 5 Good morning!                                      1428 Good Morning        72 Kanye West 
+ 6 Good morning!                                      1428 Good Morning        72 Kanye West 
+ 7 Wake up Mr. West, Mr. West                         1428 Good Morning        72 Kanye West 
+ 8 Mr. Fresh, Mister, by himself he's so impressed    1428 Good Morning        72 Kanye West 
+ 9 I mean damn, did you even see the test?            1428 Good Morning        72 Kanye West 
+10 You got D's, muthafucka D's, Rosie Perez           1428 Good Morning        72 Kanye West 
+# ... with 43 more rows
+
+```
+# tokenization of the lyrics
+gm_lyrics %>%
+  # get bigrams
+  unnest_tokens(bigram, line, token = "ngrams", n = 2) %>%
+  # count bigram frequency
+  count(bigram) %>%
+  # look for good morning
+  filter(bigram == "good morning")
+```
+># A tibble: 1 x 2
+  bigram           n
+  <chr>        <int>
+1 good morning    18
+
+However I am getting some errors when trying to get the lyrics for particular song ids. For instance I can retrieve the lyrics
+for song id 378424	Reindeer(s) Are Better Than People (Ft. Jonathan Groff)s  but I get an error for 'Grandma got run over by a reindeer' song id 639195.
+From googling and the issues page on the github repository it seems to be do with there been multiple songs with the same title. I'm not sure 
+
+
+>Error in bind_rows_(x, .id) : Argument 6 is a list, must contain atomic vectors
+
+### search for songs with the term 'reindeer' in the title
+
+```
+library(geniusr)
+library(dplyr)
+library(tidytext)
+
+# Get song search results for the term 'reindeer'
+search_song(search_term = "reindeer") 
+```
+># A tibble: 10 x 5
+   song_id song_name                            song_lyrics_url                                     artist_id artist_name    
+     <int> <chr>                                <chr>                                                   <int> <chr>          
+ 1 2117963 Rudolph the Red-Nosed Reindeer       https://genius.com/Christmas-songs-rudolph-the-red…    404512 Christmas Songs
+ 2 3174946 Reindeer King                        https://genius.com/Tori-amos-reindeer-king-lyrics       34286 Tori Amos      
+ 3  378424 Reindeer(s) Are Better Than People … https://genius.com/Walt-disney-records-reindeers-a…     32992 Walt Disney Re…
+ 4 3341368 Rudolph the Rednose Reindeer (Ft. D… https://genius.com/Dmx-rudolph-the-rednose-reindee…        77 DMX            
+ 5  191693 Rudolph The Red Nosed Reindeer       https://genius.com/George-strait-rudolph-the-red-n…     15101 George Strait  
+ 6  639195 Grandma Got Run Over by a Reindeer   https://genius.com/Elmo-and-patsy-grandma-got-run-…    289481 Elmo & Patsy   
+ 7  512798 Rudolph The Red-Nosed Reindeer       https://genius.com/Gene-autry-rudolph-the-red-nose…    225402 Gene Autry     
+ 8 1300398 Rudolph The Red-Nosed Reindeer       https://genius.com/Destinys-child-rudolph-the-red-…      2831 Destiny's Child
+ 9  208203 Rudolph The Red-Nosed Reindeer       https://genius.com/Dolly-parton-rudolph-the-red-no…     20955 Dolly Parton   
+10 1466805 Rudolph the Red Nosed Reindeer       https://genius.com/Dean-martin-rudolph-the-red-nos…     29189 Dean Martin    
+
+select a song and get the lyrics using the song_id
+```
+# get lyrics
+scrape_lyrics_id(song_id = 378424)
+```
+># A tibble: 20 x 5
+   line                                song_id song_name                                         artist_id artist_name       
+   <chr>                                 <int> <chr>                                                 <int> <chr>             
+ 1 Reindeers are better than people     378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 2 Sven, don't you think that's true?   378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 3 (As Sven)                            378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 4 Yeah, people will beat you           378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 5 And curse you and cheat you          378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 6 Every one of them's bad except you   378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 7 (As himself)                         378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 8 Oh, thanks buddy                     378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+ 9 But people smell better than reind…  378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+10 Sven, don't you think I'm right?     378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+11 (As Sven)                            378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+12 That's once again true               378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+13 For all except you                   378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+14 (As himself)                         378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+15 You got me, let's call it a night    378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+16 (As Sven)                            378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+17 Good night                           378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+18 (As himself)                         378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+19 Don't let the frostbite              378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+20 Bite...                              378424 Reindeer(s) Are Better Than People (Ft. Jonathan…     32992 Walt Disney Recor…
+
+
+```
+# get lyrics
+scrape_lyrics_id(song_id = 639195)
+```
+>Error in bind_rows_(x, .id) : Argument 6 is a list, must contain atomic vectors
+
+I found this function in the [github issues page] ("https://github.com/ewenme/geniusr/issues/1") which seems to be an edited version of the code behind the `scrape_lyrics_id` function. However the lyrics it pulls here do not seem to be lyrics for the song requested! 
+
+>   line                                song_id song_name                                         artist_id artist_name    
+>   639195 Grandma Got Run Over by a Reindeer   https://genius.com/Elmo-and-patsy-grandma-got-run-…    289481 Elmo & Patsy 
+
+
+```
+library(rvest)
+lyric_scrape2 <- function(songid){
+# changed url
+session <- suppressWarnings(read_html(paste0("https://genius.com/",songid)))
+lyrics <- html_nodes(session,".lyrics p")
+xml_find_all(lyrics, ".//br") %>% xml_add_sibling("p","\n")
+xml_find_all(lyrics, ".//br") %>% xml_remove()
+lyrics <- unlist(html_text(lyrics))
+lyrics <- as.character(lyrics)
+# changed gsub parameters
+lyrics <- gsub("[\r\n]", " ", lyrics) 
+lyrics <- gsub( " *\\[.*?\\] *", " ", lyrics)
+return(lyrics)
+}
+
+```
+
+```
+lyric_scrape2(639195)
+```
+>[1] "Yeah  It feels so good to be back  Thewz  If I had the time I would let them stop me for photos, switch my life into slow mo A lot hoes are out for the ring but I ain't frodo  A lord tho, with the flow colder than the north pole I'll be the best until they stop the beating in my torso Whoa, remember when we used to brag about  2 zeroes on a check, now that's just a sad amount The little things turned to microscopic  Then focus switched from hot wheels to hot chicks  From hot chicks to hot whips  Money over everything, get no bitches with out it  Now I'm scoopin groupies off this rap shit  Had to beg to bend them over now I got em doing back flips All up on my mattress, a model, an actress  Get em three at a time, call me Mr. hat trick A star like Patrick, buzzin like Shwayze Been killin’ this rap shit since Brenda had her baby  Nah I’m playin’, I'm much too young for that DJs get your LT on and run it back  Like the middle pocket on my jeans, yeah I stay fly I'm slick, but never catch me slippin’ like KY  The answer like AI or A,B,C  I remember when the clubs had to see ID  Now they see dub z, and my fly mami  Say peace to the owner, he say “it’s on me”  Now we treat champagne like alcoholic rain  In the VIP section like it ain't no thing  It's funny how the models follow Ciroc bottles  And they're all on coke so when we fuck it's full throttle  This is everything I used to dream about  Now we're in the range rove, baby girl screaming out  The window, just sparked up the indo  I did it for myself, now it's time to help my kinfolk   Outro  If dreams come true...  Sound Tribe all day every day mother fucker"
+
+These turn out to be the lyrics for a song called "If dreams come true" by Thewz where the lyrics are at the following url:
+"https://genius.com/639195"
+Doing a search now for songs with the term "if dreams come true" by Thewz to see what song id yields.
+
+
+```
+# Get song search results for the term "if dreams come true"
+search_song(search_term = "if dreams come true") %>%
+  # look for Kanye as the primary artist
+  filter(artist_name == "Thewz") %>%
+    filter(artist_id == 18260)
+
+
+```
+># A tibble: 1 x 5
+  song_id song_name           song_lyrics_url                                     artist_id artist_name
+    <int> <chr>               <chr>                                                   <int> <chr>      
+1   68156 If Dreams Come True https://genius.com/Thewz-if-dreams-come-true-lyrics     18260 Thewz      
+
+Now getting the lyrics for the song id 68156
+
+```
+scrape_lyrics_id(song_id = 68156)
+```
+This however also yields an error in bind rows
+> error in bind_rows_(x, .id) : Argument 5 is a list, must contain atomic vectors
+
+I should figure out where the song id is stored and how it relates the url of the song lyrics.
+
+Back to 'Grandma got run over by a reindeer' ...
+
+```
+get_song_meta(639195)
+```
+Again this does not work.
+Try another function called `scrape_lyrics_url`
+
+```{r}
+?scrape_lyrics_url
+```
+>Scrape lyrics from a Genius' lyric page using it's associated URL. Best used with scrape_tracklist, when song IDs aren't returned - otherwise, scrape_lyrics_id is recommended.
+
+The search song function returns a `song_lyrics_url` so will try that now.
+
+```
+grandma <-search_song(search_term = "grandma got run over by a reindeer")  %>%
+    filter(artist_id == 289481)
+grandma$song_lyrics_url
+
+```
+>[1] "https://genius.com/Elmo-and-patsy-grandma-got-run-over-by-a-reindeer-lyrics"
+
+Now I have a url for the lyrics I can try to get the lyrics using the `scrape_lyrics_url` function
+
+```
+
+scrape_lyrics_url(song_lyrics_url = "https://genius.com/Elmo-and-patsy-grandma-got-run-over-by-a-reindeer-lyrics")
+```
+># A tibble: 60 x 4
+   line                          song_lyrics_url                                        song_name                 artist_name
+   <chr>                         <chr>                                                  <chr>                     <chr>      
+ 1 Grandma got runned over by a… https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 2 Walking home from our house … https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 3 You can say there's no such … https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 4 But as for me and Grandpa, w… https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 5 She'd been drinkin' too much… https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 6 And we'd begged her not to go https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 7 But she'd left her medication https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 8 So she stumbled out the door… https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+ 9 When they found her Christma… https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+10 At the scene of the attack    https://genius.com/Elmo-and-patsy-grandma-got-run-ove… Grandma Got Run Over by … Elmo & Pat…
+# ... with 50 more rows
+
+
+
+This works for getting the lyrics for song ids where it is not possible due to the errors above with the song_id.
+I would still like to know where the song_id is coming from though!
+This is where I leave this for now.
+I can get lyrics for a particular song by using either the `search_song` function with the argument `search_term = "search term"` and then by using either the `scrape_lyrics_id` function with the song_id
+or alternatively when that is not possible by using the `scrape_lyrics_url` with the `song_lyrics_url` returned in the `search_song` results
+
+### next
+
+need a function to read in lyrics programatically rather than specifyng the song_id or song_lyrics_url for each song.
+
+
+
+
+
